@@ -25,7 +25,7 @@ payable contract Lottery=
     */
     require(Call.value == 1*1000000000000000000,"Must Send 1ae")
     require(getParticipantLength() =< 5, "PARTICIPANT LIMIT REACHED")
-    alreadyIn(Call.caller) // checks if the participant is already in
+    require(alreadyIn(Call.caller) == false, "Participant Already IN")
     let stored_participant = {
                 id=getParticipantLength() + 1,
                 account_address=Call.caller,
@@ -56,9 +56,10 @@ payable contract Lottery=
     switch(Map.lookup(5, state.participants))
       Some(x) => 
         if(x.account_address == _participant)
-          abort("Already A Participant")
-        // Map.member(_participant, state.participants["participant"].account_address)
-
+          true
+        else
+          false
+    //     
     // Map.member(_participant, state.participants["participant"].account_address)
     // state[participants].participant.account_address
     //  == _participant
@@ -68,7 +69,7 @@ payable contract Lottery=
       Some(x) => put(state{participants = Map.delete(index,state.participants)})
 
 `
-const contractAddress ='ct_US1Sy6ztGmFBEVCSqh1THBkLhqTsGpvZEPshdE6xNiQWTR4kW'
+const contractAddress ='ct_dHA2JWySE3BDjcm2xGbdHW3D8WWZcT5WAKG5Qu3z8o8MkMYSg'
 
 var client = null // client defuault null
 var ParticipantsArr = [] // empty arr
