@@ -1,5 +1,5 @@
 const contractSource = `
-contract Lottery=
+payable contract Lottery=
   record participant ={
     id:int,
     account_address:address,
@@ -16,7 +16,7 @@ contract Lottery=
   entrypoint getParticipantLength():int=
     state.index_counter
 
-  stateful entrypoint join() =
+  payable stateful entrypoint join() =
     /*
         checks the Call.value is 1 ae
         checks if the participant length is less than 5
@@ -39,7 +39,7 @@ contract Lottery=
       None => abort("Participant does not exist with this index")
       Some(x) => x  
 
-  stateful entrypoint winner(_participant : int)=
+  payable stateful entrypoint winner(_participant : int)=
     /*
         checks if the Participants count is == 5
         checks if the id is in the participants records
@@ -57,7 +57,7 @@ contract Lottery=
       Some(x) => put(state{participants = Map.delete(index,state.participants)})
 
 `
-const contractAddress ='ct_23vXziVCqjmFw8ndTJRUdumPMoyjZSYVqgcrhPR5Qe7mCdRJut'
+const contractAddress ='ct_2hyDpeNKjpdgEKB8YR59jbXNcDhu2ePM37ATFQfwRdEqrjdNMc'
 
 var client = null // client defuault null
 var ParticipantsArr = [] // empty arr
