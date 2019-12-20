@@ -1,0 +1,56 @@
+contract Lottery=
+  record participant ={
+    id:int,
+    account_address:address,
+    joined:int}
+
+  record state ={
+    index_counter:int,
+    participants:map(int,participant)}
+
+  entrypoint init()={
+    index_counter=0,
+    participants={}}
+
+  entrypoint getParticipantLength():int=
+    state.index_counter
+
+  stateful entrypoint join() =
+    /*
+        checks the Call.value is 1 ae
+        checks if the participant length is less than 5
+        stores the participant
+        updates the state
+    */
+    require(Call.value == 1*1000000000000000000,"Must Send 1ae")
+    require(getParticipantLength() =< 5, "PARTICIPANT LIMIT REACHED")
+
+    let stored_participant = {
+                id=getParticipantLength() + 1,
+                account_address=Call.caller,
+                joined=Chain.timestamp}
+    let index = getParticipantLength() + 1
+    put(state{participants[index]=stored_participant,index_counter=index})
+    // if getParticipantLength() == 5
+    //     winner()
+  entrypoint get_participant_by_index(index:int) : participant = 
+    switch(Map.lookup(index, state.participants))
+      None => abort("Participant does not exist with this index")
+      Some(x) => x  
+
+  stateful entrypoint winner(_participant : int)=
+    /*
+        checks if the Participants count is == 5
+        checks if the id is in the participants records
+        get the winner by passing the int value to the get_participant_by_index
+        the transfer the coins in the Contract to the winner's address note the winner is gotten 
+        randomly from js
+    */
+    require(getParticipantLength() == 5, "Time To Select")
+    require(Map.member(_participant,state.participants),"Not Part of the Participant")
+    let winner_r = get_participant_by_index(_participant)
+    Chain.spend(winner_r.account_address,Contract.balance)
+
+  stateful entrypoint delete_participant_map(index:int) =
+    switch(Map.lookup(index, state.participants))
+      Some(x) => put(state{participants = Map.delete(index,state.participants)})

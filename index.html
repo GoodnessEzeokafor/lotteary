@@ -1,0 +1,79 @@
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Lottery Dapp</title>
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css">  <!-- Bootstrap core CSS -->
+  <link href="css/bootstrap.min.css" rel="stylesheet">
+  <!-- Material Design Bootstrap -->
+  <link href="css/mdb.min.css" rel="stylesheet">
+  <!-- Your custom styles (optional) -->
+  <link href="css/style.css" rel="stylesheet">
+  </script>  
+</head>
+<body>
+<!--Navbar -->
+<nav class="mb-1 navbar navbar-expand-lg navbar-dark default-color">
+  <a class="navbar-brand" href="#">Lotteary</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent-333"
+    aria-controls="navbarSupportedContent-333" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarSupportedContent-333">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+        <a class="nav-link" href="#">Home
+          <span class="sr-only">(current)</span>
+        </a>
+      </li>
+    </ul>
+  </div>
+</nav>
+<!--/.Navbar -->
+<div class="container" style="margin-top:0px;">
+  <div class="row">
+    <div class="col-md-12">
+      <div style="margin-top:87px ;"> 
+        <h4 class="text-center text-break">
+          Only A Total Of 5 Participants Can Participate In The Raffle Draw
+        </h4>
+      </div>
+      <div>
+      <div  class="list-group-flush" id="getParticipants" >
+        
+      </div>
+    </div>
+      <div style="height: 100vh" class="mt-5" id="joinId">
+          <p class="animated fadeIn text-muted">
+            <button class="btn btn-default btn-block joinBtn">JOIN</button>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<script id="template" type="x-tmpl-mustache">
+  {{#ParticipantsArr}}
+  <div class="list-group-item">
+    <p class="mb-0"><i class="far fa-user fa-2x mr-4 grey p-3 white-text rounded-circle " aria-hidden="true"></i>
+      {{account_address}}
+    </p>
+  </div>
+  {{/ParticipantsArr }}
+</script>
+  <script type="text/javascript" src="js/jquery.min.js"></script>
+  <!-- Bootstrap tooltips -->
+  <script type="text/javascript" src="js/popper.min.js"></script>
+  <!-- Bootstrap core JavaScript -->
+  <script type="text/javascript" src="js/bootstrap.min.js"></script>
+  <!-- MDB core JavaScript -->
+  <script type="text/javascript" src="js/mdb.min.js"></script>
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/mustache.js/3.0.1/mustache.js"></script>
+  <!-- aeternity -->
+  <script src="https://unpkg.com/@aeternity/aepp-sdk/dist/aepp-sdk.browser-script.js"></script>
+  <!-- custom js -->
+  <script type="text/javascript" src="index.js"></script>
+</body>
+</html>
