@@ -24,7 +24,7 @@ payable contract Lottery=
     */
     require(Call.value == 1*1000000000000000000,"Must Send 1ae")
     require(getParticipantLength() =< 5, "PARTICIPANT LIMIT REACHED")
-    alreadyIn(Call.caller)
+    alreadyIn(Call.caller) // checks if the participant is already in
     let stored_participant = {
                 id=getParticipantLength() + 1,
                 account_address=Call.caller,
